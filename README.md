@@ -35,12 +35,13 @@ Même ossature que FUI (menu et barre fixes, tiroir mobile, écran de connexion)
 
 ### Le thème Classic cars
 
-Même ossature que FUI, mais **clair**, ambiance automobile ancienne :
+Même ossature que FUI, mais **clair**, ambiance automobile ancienne, en **matières réalistes** (textures générées en SVG, sans image externe) :
 
-- Papier crème ; liens, en-têtes de tableaux et action principale en vert « British racing green » ; titres de section en rouge bordeaux.
-- Menu latéral en **cuir de cockpit** surpiqué, accents laiton.
-- **Bandeau chromé** bordé d'un **damier** ; boutons façon plaques chromées (actions destructrices en émail rouge) ; étiquettes en badges émaillés.
-- Écran de connexion « Mettez le contact » : carte crème à damier avec un **compteur de vitesse** dessiné en CSS.
+- **Cockpit** : menu en cuir grainé en relief, surpiqûre à double fil, en-tête en ronce de noyer vernie souligné d'un jonc chromé, lettrage « Adminer » chromé ; combiné de jauges d'époque (essence, eau) en bas du menu.
+- **Chrome brossé** : bandeau supérieur à rivet et damier émaillé ; boutons biseautés qui s'enfoncent au clic.
+- **Émail vitrifié** cerclé de chrome : action principale en vert « British racing green », actions destructrices en rouge, badges des cadres en bordeaux.
+- **Papier de carnet d'entretien** grainé pour le fond et les cadres ; en-têtes de tableaux laqués vert anglais ; drapeau à damier ondulant après les titres, rivets chromés devant les sections, voyant vert pour l'utilisateur connecté.
+- Écran de connexion « Mettez le contact » : **compteur de vitesse** façon années 60 (cadran noir 0–200 km/h, compteur kilométrique, verre bombé) dont l'aiguille fait un seul balayage au chargement.
 - Titres en slab-serif d'époque, interface en sans-serif géométrique, code SQL en chasse fixe. Aucune animation en boucle.
 
 ## Installation
