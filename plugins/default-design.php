@@ -24,6 +24,19 @@ class AdminerDefaultDesign extends Adminer\Plugin {
 		$this->designs = $designs;
 	}
 
+	/** Enregistre le choix du sélecteur y compris sur l'écran de connexion.
+	* Le plugin officiel ne le traite qu'après connexion (afterConnect) : déconnecté, le
+	* sélecteur restait sans effet et on restait bloqué sur le dernier thème choisi.
+	* headers() est appelé avant toute sortie, sur toutes les pages, connecté ou non.
+	*/
+	function headers() {
+		if (isset($_POST["design"]) && Adminer\verify_token()) {
+			Adminer\restart_session();
+			$_SESSION["design"] = $_POST["design"];
+			Adminer\redirect(Adminer\relative_uri());
+		}
+	}
+
 	function css() {
 		$design = isset($_SESSION["design"]) ? $_SESSION["design"] : "";
 		if ($design === "" || ($this->designs && !array_key_exists($design, $this->designs))) {

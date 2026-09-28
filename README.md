@@ -80,6 +80,8 @@ Dans cette configuration, `adminer.css` à côté de `adminer.php` n'est plus ut
 
 Le plugin officiel `designs` n'applique **aucun** thème tant que rien n'est choisi dans son sélecteur : on retomberait sur l'apparence brute d'Adminer. `AdminerDefaultDesign` applique le thème par défaut quand la session ne contient aucun choix, ou un choix qui n'est plus proposé. Il doit être déclaré **avant** `AdminerDesigns` : Adminer retient le premier plugin dont `css()` renvoie une valeur non nulle.
 
+Il rend aussi le sélecteur utilisable **sur l'écran de connexion** : le plugin officiel n'enregistre le choix qu'une fois connecté, si bien qu'après une déconnexion on restait bloqué sur le dernier thème choisi.
+
 ### Sécurité quand le dépôt est dans la racine web
 
 Le fichier [`.htaccess`](.htaccess) du dépôt (Apache, `AllowOverride` requis) refuse les `.php` et masque `.git` en HTTP ; seules les feuilles de style sont servies. Adminer inclut les plugins par le système de fichiers, ce blocage ne le gêne pas.
