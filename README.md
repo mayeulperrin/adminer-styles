@@ -1,2 +1,91 @@
 # adminer-styles
-Custom styles for adminer.php
+
+Thèmes CSS pour [Adminer](https://www.adminer.org/) : **FUI** (maison) et quelques thèmes d'origine, avec un sélecteur de thème dans l'interface.
+
+Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mobile.
+
+## Thèmes
+
+| Dossier | Thème | Origine |
+|---|---|---|
+| `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction | ce dépôt |
+| `cpanel/adminer.css` | cPanel (imite le thème Jupiter de cPanel) | design officiel Adminer « cpanel » |
+| `classic/adminer.css` | Adminer classique (fichier vide = apparence d'origine, claire) | — |
+| `adminer-dark/adminer-dark.css` | Adminer sombre (fichier quasi vide = mode sombre d'origine) | design officiel Adminer « adminer-dark » |
+
+### Le thème FUI
+
+- Fond abyssal quadrillé, cyan néon, filets fins, cadres à coins en équerre, boutons chanfreinés, scanlines fixes discrètes.
+- Actions destructrices (supprimer, tronquer, déconnexion) en rouge ; action principale pleine.
+- Menu latéral et barre supérieure (fil d'Ariane, utilisateur, déconnexion) fixes ; en-têtes de tableaux collants.
+- Éditeur SQL façon terminal, coloration syntaxique (jush) adaptée au fond sombre.
+- Écran de connexion en carte centrée « Access terminal ».
+- **Responsive** : sous 800 px, barre fixe + bouton menu ≡/✕ ouvrant un tiroir avec voile ; tableaux défilants horizontalement ; champs en 16 px (pas de zoom automatique sur iOS).
+- **Lisibilité** : les noms de bases, tables et colonnes ne sont jamais mis en capitales ; animations coupées si le système demande moins de mouvement (`prefers-reduced-motion`).
+- **Aucune ressource externe** (compatible avec la CSP d'Adminer) : polices système, icônes en `data:` URI.
+
+## Installation
+
+### A. Un seul thème, sans sélecteur
+
+Copier le fichier à côté de `adminer.php`, sous le nom `adminer.css` :
+
+```sh
+cp adminer-styles/fui/adminer.css /chemin/vers/adminer/adminer.css
+```
+
+Adminer le charge automatiquement. **Supprimer tout `adminer-dark.css` voisin** : s'il existe, Adminer n'applique plus `adminer.css` qu'en mode clair et superpose son propre thème sombre.
+
+### B. Plusieurs thèmes avec sélecteur (recommandé)
+
+Cloner le dépôt à côté de `adminer.php`, puis utiliser le plugin officiel [`designs`](https://www.adminer.org/plugins/) associé au plugin `default-design.php` de ce dépôt :
+
+```sh
+cd /chemin/vers/adminer
+git clone https://github.com/mayeulperrin/adminer-styles.git
+mkdir -p adminer-plugins
+# plugin officiel, version identique à celle d'Adminer (ici 6.1.0)
+curl -sSfL -o adminer-plugins/designs.php \
+  https://raw.githubusercontent.com/vrana/adminer/v6.1.0/plugins/designs.php
+# plugin « thème par défaut » de ce dépôt
+ln -s ../adminer-styles/plugins/default-design.php adminer-plugins/default-design.php
+# configuration des plugins
+cp adminer-styles/adminer-plugins.example.php adminer-plugins.php
+```
+
+Adminer inclut tout seul les fichiers `adminer-plugins/*.php`, puis lit `adminer-plugins.php` (voir [`adminer-plugins.example.php`](adminer-plugins.example.php)). Un sélecteur « Thème » apparaît alors dans le menu ; le choix est mémorisé **pour la session** (retour au thème par défaut après déconnexion).
+
+Dans cette configuration, `adminer.css` à côté de `adminer.php` n'est plus utilisé : dès qu'un plugin fournit du CSS, Adminer ne charge plus ce fichier automatiquement.
+
+#### Pourquoi `default-design.php` ?
+
+Le plugin officiel `designs` n'applique **aucun** thème tant que rien n'est choisi dans son sélecteur : on retomberait sur l'apparence brute d'Adminer. `AdminerDefaultDesign` applique le thème par défaut quand la session ne contient aucun choix, ou un choix qui n'est plus proposé. Il doit être déclaré **avant** `AdminerDesigns` : Adminer retient le premier plugin dont `css()` renvoie une valeur non nulle.
+
+### Sécurité quand le dépôt est dans la racine web
+
+Le fichier [`.htaccess`](.htaccess) du dépôt (Apache, `AllowOverride` requis) refuse les `.php` et masque `.git` en HTTP ; seules les feuilles de style sont servies. Adminer inclut les plugins par le système de fichiers, ce blocage ne le gêne pas.
+
+## Personnaliser le thème FUI
+
+Les couleurs et dimensions sont des variables CSS en tête de `fui/adminer.css` (section « Jetons ») :
+
+| Variable | Rôle |
+|---|---|
+| `--cyan`, `--cyan-2` | couleur principale et sa version claire |
+| `--amber`, `--red`, `--green`, `--violet` | titres de section, danger, succès, dates |
+| `--void`, `--deep`, `--panel` | fonds (page, surfaces, panneaux) |
+| `--text`, `--muted` | texte courant et secondaire |
+| `--menu-w`, `--bar-h` | largeur du menu, hauteur de la barre supérieure |
+| `--cut` | taille des chanfreins des boutons |
+
+Deux règles à respecter en modifiant le thème :
+
+1. **N'écrire nulle part la chaîne `prefers-color-scheme: dark`** (même en commentaire) : Adminer la détecte et reclasse alors le fichier en thème « clair et sombre », ce qui recharge son `dark.css` par-dessus.
+2. Ne pas passer en capitales les éléments qui affichent des identifiants (en-têtes de colonnes, noms de tables, fil d'Ariane) : dans un outil SQL, la casse compte.
+
+Pour ajouter un thème au sélecteur : créer `mon-theme/adminer.css` (ou `…-dark.css` pour un thème sombre), puis l'ajouter à la liste `$designs` de `adminer-plugins.php`.
+
+## Licences
+
+- Thème FUI et `plugins/default-design.php` : © Mayeul Perrin.
+- `cpanel/adminer.css` et `adminer-dark/adminer-dark.css` : designs officiels distribués avec Adminer (Apache License 2.0 ou GPL 2), repris sans modification.

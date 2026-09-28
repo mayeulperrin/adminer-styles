@@ -1,0 +1,7 @@
+# Protection quand le dépôt est cloné dans la racine web, à côté de adminer.php :
+# seules les feuilles de style doivent être servies.
+# (Adminer inclut les .php par le système de fichiers : ce blocage HTTP ne le gêne pas.)
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git(/|$)
