@@ -10,6 +10,7 @@ Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mob
 |---|---|
 | `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction |
 | `noel/adminer.css` | **Noël** — nuit de sapin, or et rouge houx, neige et guirlande lumineuse |
+| `classic-cars/adminer.css` | **Classic cars** — thème clair : cockpit en cuir, chrome, damier, vert anglais |
 
 ### Le thème FUI
 
@@ -31,6 +32,16 @@ Même ossature que FUI (menu et barre fixes, tiroir mobile, écran de connexion)
 - Guirlande lumineuse sous la barre du haut, étoile scintillante après les titres, étiquettes en ruban rouge, boutons et cadres arrondis.
 - Carte de connexion à bordure sucre d'orge.
 - Titres en serif, interface en sans-serif, code SQL en chasse fixe.
+
+### Le thème Classic cars
+
+Même ossature que FUI, mais **clair**, ambiance automobile ancienne :
+
+- Papier crème ; liens, en-têtes de tableaux et action principale en vert « British racing green » ; titres de section en rouge bordeaux.
+- Menu latéral en **cuir de cockpit** surpiqué, accents laiton.
+- **Bandeau chromé** bordé d'un **damier** ; boutons façon plaques chromées (actions destructrices en émail rouge) ; étiquettes en badges émaillés.
+- Écran de connexion « Mettez le contact » : carte crème à damier avec un **compteur de vitesse** dessiné en CSS.
+- Titres en slab-serif d'époque, interface en sans-serif géométrique, code SQL en chasse fixe. Aucune animation en boucle.
 
 ## Installation
 
