@@ -1,0 +1,995 @@
+/* Adminer design noel */
+/*
+ * Noël — thème festif pour Adminer 6.
+ * Nuit de sapin, or, rouge houx et blanc neige : neige qui tombe lentement DERRIÈRE le
+ * contenu, guirlande lumineuse sous la barre du haut, étiquettes en ruban, boutons arrondis.
+ * Même ossature que le thème FUI (menu fixe, barre supérieure, tiroir mobile, écran de connexion).
+ * https://github.com/mayeulperrin/adminer-styles
+ *
+ * Toujours actif : ce fichier ne doit contenir aucune requête média portant sur le
+ * schéma de couleurs, sinon Adminer le reclasse et recharge son propre thème sombre.
+ * Aucune ressource externe (CSP d'Adminer) : polices système, images en data: URI.
+ * Les identifiants (bases, tables, colonnes) ne sont jamais transformés en capitales.
+ * La neige s'arrête si le système demande moins d'animations.
+ */
+
+/* ============================================================
+   1. Jetons
+   ============================================================ */
+html {
+	--void: #07170f;
+	--deep: #0c2219;
+	--panel: rgba(12, 34, 25, .93);
+	--panel-solid: #10291f;
+	--raise: #173a2c;
+	--cyan: #f2c14e;
+	--cyan-2: #ffe29a;
+	--cyan-soft: rgba(242, 193, 78, .55);
+	--line: rgba(242, 193, 78, .18);
+	--line-2: rgba(242, 193, 78, .36);
+	--glow: 0 0 .45rem rgba(242, 193, 78, .55), 0 0 1.4rem rgba(242, 193, 78, .18);
+	--amber: #e8554e;
+	--red: #ff5252;
+	--green: #7ee29a;
+	--violet: #c9b3ff;
+	--text: #f4efe2;
+	--muted: #9db4a4;
+	--font: "Nunito", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", "DejaVu Sans", Arial, sans-serif;
+	--title: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "DejaVu Serif", serif;
+	--mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "SF Mono", ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+	--berry: #c62828;
+	--snow: #ffffff;
+	--radius: 12px;
+	--menu-w: 17.5rem;
+	--bar-h: 2.75rem;
+	--cut: 7px;
+
+	/* jetons consommés par le default.css d'Adminer */
+	--bg: var(--deep);
+	--fg: var(--text);
+	--dim: #12301f;
+	--lit: #1a3d2b;
+
+	color-scheme: dark;
+	accent-color: var(--cyan);
+	scrollbar-color: rgba(242, 193, 78, .45) transparent;
+	scrollbar-width: thin;
+}
+
+/* ============================================================
+   2. Fond, texture
+   ============================================================ */
+body {
+	font: 400 clamp(13px, .76rem + .12vw, 14px)/1.55 var(--font);
+	color: var(--text);
+	letter-spacing: .01em;
+	background:
+		radial-gradient(ellipse 70% 45% at 80% -5%, rgba(242, 193, 78, .14), transparent 60%),
+		radial-gradient(ellipse 55% 40% at -5% 105%, rgba(198, 40, 40, .16), transparent 60%),
+		radial-gradient(ellipse 40% 30% at 105% 100%, rgba(126, 226, 154, .07), transparent 60%),
+		var(--void);
+	background-attachment: fixed;
+}
+
+/* neige : deux couches qui tombent lentement, DERRIÈRE le contenu (z-index négatif) */
+body::before,
+body::after {
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	pointer-events: none;
+	z-index: -1;
+	will-change: transform;
+}
+body::before {
+	top: -220px;
+	height: calc(100% + 220px);
+	background-image: radial-gradient(circle at 18px 30px, rgba(255, 255, 255, 0.9) 0 1.2px, transparent 1.7999999999999998px), radial-gradient(circle at 72px 110px, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.6px), radial-gradient(circle at 130px 60px, rgba(255, 255, 255, 0.8) 0 1.4px, transparent 2.0px), radial-gradient(circle at 190px 160px, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px), radial-gradient(circle at 40px 190px, rgba(255, 255, 255, 0.8) 0 1.3px, transparent 1.9px), radial-gradient(circle at 160px 20px, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.6px), radial-gradient(circle at 100px 150px, rgba(255, 255, 255, 0.9) 0 1.2px, transparent 1.7999999999999998px), radial-gradient(circle at 210px 90px, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px);
+	background-size: 220px 220px;
+	opacity: .55;
+	animation: noel-snow-small 38s linear infinite;
+}
+body::after {
+	top: -360px;
+	height: calc(100% + 360px);
+	background-image: radial-gradient(circle at 60px 80px, rgba(255, 255, 255, 0.75) 0 2.2px, transparent 3.0px), radial-gradient(circle at 250px 210px, rgba(255, 255, 255, 0.6) 0 2.6px, transparent 3.4000000000000004px), radial-gradient(circle at 170px 330px, rgba(255, 255, 255, 0.7) 0 2px, transparent 2.8px), radial-gradient(circle at 320px 40px, rgba(255, 255, 255, 0.55) 0 2.4px, transparent 3.2px);
+	background-size: 360px 360px;
+	opacity: .45;
+	animation: noel-snow-big 60s linear infinite;
+}
+
+@keyframes noel-snow-small { to { transform: translateY(220px); } }
+@keyframes noel-snow-big { to { transform: translateY(360px); } }
+@keyframes noel-twinkle { 50% { opacity: .35; transform: scale(.85); } }
+@keyframes noel-boot {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes noel-pulse {
+	50% { opacity: .35; }
+}
+
+::selection { background: var(--cyan); color: var(--void); }
+:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+#foot:focus { outline: none; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(242, 193, 78, .4); }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+/* ============================================================
+   3. Typographie
+   ============================================================ */
+a, a:visited, button.link {
+	color: var(--cyan);
+	text-decoration: none;
+	transition: color .15s, text-shadow .15s;
+}
+a:link:hover, a:visited:hover, button.link:hover {
+	color: var(--cyan-2);
+	text-decoration: none;
+	text-shadow: var(--glow);
+}
+
+h2 {
+	position: relative;
+	margin: 0 0 1.3rem;
+	margin-inline-start: 0;
+	padding: .8rem 0 .7rem 1.1rem;
+	border: 0;
+	font: 600 clamp(1.15rem, 1rem + .6vw, 1.6rem)/1.3 var(--title);
+	letter-spacing: .02em;
+	color: var(--cyan-2);
+	text-shadow: 0 0 .9rem rgba(242, 193, 78, .35);
+	background:
+		linear-gradient(90deg, var(--cyan) 0 3.5rem, var(--line-2) 3.5rem 55%, transparent) left bottom / 100% 1px no-repeat,
+		linear-gradient(var(--cyan), var(--cyan)) left .95rem / 3px calc(100% - 1.75rem) no-repeat;
+	overflow-wrap: anywhere;
+}
+h2::after {
+	content: "✦";
+	display: inline-block;
+	margin-inline-start: .4em;
+	font-size: .7em;
+	color: var(--cyan);
+	text-shadow: var(--glow);
+	animation: noel-twinkle 3.2s ease-in-out infinite;
+}
+
+h3 {
+	display: flex;
+	align-items: center;
+	gap: .7rem;
+	margin: 2.1rem 0 .1rem;
+	font: 600 .74rem/1.2 var(--font);
+	letter-spacing: .22em;
+	text-transform: uppercase;
+	color: var(--amber);
+}
+h3::before {
+	content: "❄";
+	font-size: .8rem;
+	text-shadow: 0 0 .5rem rgba(232, 85, 78, .7);
+}
+h3::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, rgba(232, 85, 78, .45), transparent);
+}
+
+code {
+	font-family: var(--mono);
+	padding: .06rem .35rem;
+	font-size: .92em;
+	color: var(--cyan-2);
+	background: rgba(242, 193, 78, .07);
+	border: 1px solid var(--line);
+}
+pre, .sqlarea, textarea[class*="jush-"] { font: .84rem/1.6 var(--mono); }
+.version { color: var(--muted); font-size: .6rem; letter-spacing: .14em; font-weight: 400; }
+#version, .plugins .update { color: var(--amber); }
+.time { color: var(--muted); font-size: .72rem; }
+td i, th i { color: var(--muted); }
+
+/* types de données */
+.char { color: var(--green); }
+.date { color: var(--violet); }
+.enum { color: #9fd8ff; }
+.binary { color: var(--red); }
+
+/* ============================================================
+   4. Tableaux
+   ============================================================ */
+table {
+	margin: 1rem 0 0;
+	margin-inline-end: 0;
+	border-spacing: 0;
+	font-size: .82rem;
+	background: var(--panel);
+}
+table, td, th, .column { border-color: var(--line); }
+td, th { padding: .42rem .7rem; }
+th { color: var(--cyan-2); font-weight: 500; background: rgba(20, 50, 36, .75); }
+thead th, thead td {
+	color: var(--cyan);
+	font-weight: 600;
+	letter-spacing: .03em;
+	background: linear-gradient(180deg, #1d4431, #133222);
+	border-bottom-color: var(--line-2);
+}
+thead th a, thead th a:visited { color: var(--cyan); }
+thead sup, thead sup a { color: var(--muted); font-size: .7em; }
+thead th[aria-sort="ascending"] > a:first-child::after { content: " ▲"; font-size: .7em; }
+thead th[aria-sort="descending"] > a:first-child::after { content: " ▼"; font-size: .7em; }
+
+tbody tr:hover td, tbody tr:hover th { background: rgba(242, 193, 78, .07); }
+tbody tr:hover > :first-child:not(.hover) { box-shadow: inset 2px 0 0 var(--cyan); }
+.odds tbody tr { background: transparent; }
+.odds tbody tr:nth-child(2n) { background: rgba(242, 193, 78, .028); }
+.js .checkable .checked td, .js .checkable .checked th { background: rgba(242, 193, 78, .15); }
+td.hover, tr:hover td.hover, .js .checkable .checked td.hover { background-color: var(--bg); }
+td table { background: none; }
+
+.column {
+	background: var(--raise);
+	border-color: var(--line-2);
+	box-shadow: var(--glow);
+}
+
+/* tableau « layout » (connexion, édition d'une ligne) : pas un tableau de données */
+table.layout { background: none; }
+table.layout td, table.layout th { border: 0; background: none; padding: .45rem .6rem .45rem 0; }
+table.layout td:last-child { padding-inline-end: 0; }
+table.layout th { color: var(--muted); font-weight: 500; vertical-align: middle; }
+table.layout tr:hover td, table.layout tr:hover th { background: none; box-shadow: none; }
+table.layout tr:hover > :first-child:not(.hover) { box-shadow: none; }
+
+/* ============================================================
+   5. Champs
+   ============================================================ */
+input:not([type]), input[type="text"], input[type="search"], input[type="password"],
+input[type="number"], input[type="email"], input[type="url"], input[type="tel"],
+input[type="date"], input[type="datetime-local"], input[type="time"], input[type="file"],
+select, textarea {
+	padding: .38rem .55rem;
+	font: inherit;
+	font-size: .82rem;
+	color: var(--text);
+	background-color: rgba(5, 18, 12, .85);
+	border: 1px solid var(--line-2);
+	border-radius: 8px;
+	transition: border-color .15s, box-shadow .15s, background-color .15s;
+}
+input:hover, select:hover, textarea:hover { border-color: var(--cyan-soft); }
+input:focus, select:focus, textarea:focus, [contenteditable]:focus {
+	outline: none;
+	border-color: var(--cyan);
+	box-shadow: 0 0 0 1px var(--cyan), 0 0 1rem rgba(242, 193, 78, .25);
+}
+input::placeholder, textarea::placeholder { color: rgba(157, 180, 164, .7); }
+select:not([size]):not([multiple]) {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-inline-end: 1.8rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23f2c14e'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right .6rem center;
+	background-size: .55rem;
+}
+option, optgroup { background: var(--panel-solid); color: var(--text); }
+input.default { box-shadow: none; }
+input.required, input.maxlength, textarea.maxlength { box-shadow: 0 0 0 1px var(--red); }
+input[type="checkbox"], input[type="radio"] { width: .95rem; height: .95rem; }
+label { color: var(--text); }
+
+/* ============================================================
+   6. Boutons chanfreinés
+   ============================================================ */
+input[type="submit"], input[type="button"], input[type="reset"],
+button:not(.link):not(.icon):not(.jush-help) {
+	--b: var(--cyan);
+	--fill: rgba(242, 193, 78, .06);
+	padding: .45rem 1.1rem;
+	font: 700 .72rem/1.25 var(--font);
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	color: var(--b);
+	border: 1px solid var(--b);
+	border-radius: 999px;
+	cursor: pointer;
+	background: var(--fill);
+	transition: background-color .15s, color .15s, text-shadow .15s;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover,
+button:not(.link):not(.icon):not(.jush-help):hover {
+	--fill: rgba(242, 193, 78, .18);
+	text-shadow: var(--glow);
+}
+input[type="submit"]:active, button:not(.link):not(.icon):not(.jush-help):active { --fill: rgba(242, 193, 78, .3); }
+
+/* action principale */
+input.default[type="submit"] {
+	--fill: var(--cyan);
+	color: var(--void);
+	text-shadow: none;
+}
+input.default[type="submit"]:hover { --fill: var(--cyan-2); text-shadow: none; }
+
+/* actions destructrices */
+input[name="drop"], input[name="delete"], input[name="truncate"], input[name="logout"] {
+	--b: var(--red);
+	--fill: rgba(255, 82, 82, .07);
+}
+input[name="drop"]:hover, input[name="delete"]:hover, input[name="truncate"]:hover, input[name="logout"]:hover {
+	--fill: rgba(255, 82, 82, .2);
+	text-shadow: 0 0 .5rem rgba(255, 82, 82, .7);
+}
+
+input[type="submit"]:disabled, input[type="button"]:disabled, button:disabled {
+	opacity: .32;
+	cursor: not-allowed;
+	text-shadow: none;
+}
+
+/* petites icônes d'Adminer (+, ×, déplacer) */
+.icon {
+	width: 20px;
+	height: 20px;
+	background-color: #1f4a36;
+	border: 1px solid var(--line-2);
+	border-radius: 0;
+	transition: background-color .15s, border-color .15s;
+}
+.icon:hover { background-color: var(--red); border-color: var(--red); }
+
+/* ============================================================
+   7. Cadres (fieldset) à coins en équerre
+   ============================================================ */
+fieldset {
+	margin: 1rem 0 0;
+	margin-inline-end: .6rem;
+	padding: .9rem 1rem .8rem;
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	background: var(--panel);
+}
+legend {
+	padding: .12rem .55rem;
+	font: 700 .62rem/1.4 var(--font);
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--snow);
+	background: linear-gradient(180deg, #d93a3a, var(--berry));
+	border-radius: 999px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+}
+legend a, legend a:visited, legend a:link:hover, legend a:visited:hover {
+	color: var(--snow);
+	text-shadow: none;
+}
+legend a:link:hover { text-decoration: underline; }
+
+/* ============================================================
+   8. Messages
+   ============================================================ */
+.message, .error {
+	position: relative;
+	margin: 1rem 0 0;
+	margin-inline-end: 0;
+	padding: .7rem 1rem .7rem 2.5rem;
+	font-size: .82rem;
+	border: 1px solid;
+	border-left-width: 3px;
+	border-radius: 8px;
+}
+.message {
+	color: var(--green);
+	background: rgba(126, 226, 154, .06);
+	border-color: rgba(126, 226, 154, .3);
+	border-left-color: var(--green);
+}
+.error {
+	color: #ffd0cc;
+	background: rgba(255, 82, 82, .08);
+	border-color: rgba(255, 82, 82, .35);
+	border-left-color: var(--red);
+}
+.message::before, .error::before {
+	position: absolute;
+	left: .9rem;
+	top: .68rem;
+	font-weight: 700;
+}
+.message::before { content: "✓"; text-shadow: 0 0 .6rem var(--green); }
+.error::before { content: "⚠"; color: var(--red); text-shadow: 0 0 .6rem var(--red); }
+td .error { padding: 1px 4px; margin: 0; border-width: 0; }
+td .error::before { content: none; }
+.error b { background: rgba(255, 82, 82, .18); color: #fff; font-weight: 600; }
+.error pre code, .message pre code { background: transparent; }
+.message table { color: var(--text); background: transparent; }
+
+/* ============================================================
+   9. Éditeur SQL et coloration (jush)
+   ============================================================ */
+.sqlarea, textarea.sqlarea, pre[contenteditable].jush {
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: .8rem 1rem !important;
+	color: var(--text);
+	caret-color: var(--cyan);
+	background:
+		linear-gradient(rgba(242, 193, 78, .035) 1px, transparent 1px) 0 .8rem / 100% 1.6em,
+		rgba(5, 16, 11, .92) !important;
+	border: 1px solid var(--line-2) !important;
+	border-radius: var(--radius);
+	box-shadow: inset 0 0 2.5rem rgba(242, 193, 78, .05);
+}
+.jush {
+	--text-color: var(--text);
+	--bg-color: transparent;
+	--border-color: var(--line-2);
+	--php-color: #ffe29a;
+	--string-color: var(--green);
+	--string-plain-color: #a8f0b8;
+	--keyword-color: var(--cyan);
+	--identifier-color: #ff9f8f;
+	--value-color: var(--violet);
+	--number-color: var(--amber);
+	--attribute-color: #9fd8ff;
+	--js-bg-color: transparent;
+	--css-bg-color: transparent;
+	--php-bg-color: transparent;
+	--php-sql-bg-color: rgba(255, 159, 143, .08);
+}
+.jush-htm_com, .jush-com, .jush-com_code, .jush-one, .jush-php_doc,
+.jush-php_com, .jush-php_one, .jush-js_one, .jush-js_doc { color: #6f8a78; }
+pre.jush { background: transparent; }
+select.jush-autocomplete {
+	background: var(--panel-solid);
+	border: 1px solid var(--cyan);
+	box-shadow: var(--glow);
+}
+#content > p > code.jush-sql {
+	display: inline-block;
+	padding: .4rem .7rem;
+	border-left: 2px solid var(--cyan);
+	background: rgba(5, 16, 11, .8);
+}
+
+#help {
+	padding: .4rem .6rem;
+	color: var(--text);
+	background: var(--panel-solid);
+	border: 1px solid var(--cyan-soft);
+	box-shadow: var(--glow);
+}
+
+/* ============================================================
+   10. Contenu : liens d'action, pied collant, schéma
+   ============================================================ */
+#content > h2, #content > form, #content > div, #content > table, #content > fieldset,
+#content > p:not(#breadcrumb), #content > .message, #content > .error {
+	animation: noel-boot .45s ease-out both;
+}
+#content > h2 { animation-duration: .35s; }
+
+#content p.links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .45rem;
+	margin: .5rem 0 0;
+}
+#content p.links a {
+	margin: 0;
+	border-radius: 999px;
+	padding: .3rem .7rem;
+	font-size: .68rem;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	border: 1px solid var(--line);
+	background: rgba(242, 193, 78, .04);
+	transition: background .15s, border-color .15s, color .15s;
+}
+#content p.links a:hover { border-color: var(--cyan-soft); background: rgba(242, 193, 78, .12); }
+#content p.links a.active {
+	color: var(--void);
+	background: var(--cyan);
+	border-color: var(--cyan);
+	text-shadow: none;
+}
+
+.footer {
+	margin: 1.6rem 0 .5rem;
+	margin-inline-end: 0;
+	box-shadow: none;
+}
+.footer > div {
+	padding: .1rem .7rem .8rem;
+	background: linear-gradient(180deg, rgba(12, 34, 25, .96), rgba(6, 20, 14, .99));
+	border-top: 1px solid var(--line-2);
+	box-shadow: 0 -14px 30px -14px rgba(0, 0, 0, .85), 0 -1px 0 rgba(242, 193, 78, .12);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+.footer fieldset { margin-top: .6rem; }
+
+:target { background: rgba(242, 193, 78, .1); }
+#ajaxstatus.sticky { top: var(--bar-h); }
+
+#schema .table {
+	padding: .15rem .45rem;
+	background: var(--panel-solid);
+	border-color: var(--line-2);
+	box-shadow: 0 0 1rem rgba(242, 193, 78, .08);
+}
+#schema .table:hover { border-color: var(--cyan); box-shadow: var(--glow); }
+
+/* ============================================================
+   11. Menu latéral
+   ============================================================ */
+#menu {
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(180deg, rgba(10, 30, 22, .96), rgba(6, 20, 14, .94));
+	border: 0;
+}
+
+#menu h1 {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .3rem .55rem;
+	margin: 0;
+	padding: 1rem 1.1rem .85rem;
+	font: 700 1.1rem/1 var(--title);
+	letter-spacing: .18em;
+	text-transform: uppercase;
+	color: var(--cyan-2);
+	background: none;
+	border-bottom: 1px solid var(--line);
+}
+#menu h1::after {
+	content: "Joyeux Noël ✦";
+	flex-basis: 100%;
+	margin-top: .35rem;
+	font-size: .56rem;
+	font-weight: 400;
+	letter-spacing: .3em;
+	color: var(--muted);
+}
+#h1, #h1:visited {
+	display: inline-flex;
+	align-items: center;
+	gap: .55rem;
+	color: var(--cyan-2);
+	font-style: normal;
+	text-shadow: var(--glow);
+}
+#logo {
+	width: 22px;
+	height: 22px;
+	margin: 0;
+	filter: grayscale(1) sepia(1) saturate(4) hue-rotate(5deg) brightness(1.15) drop-shadow(0 0 5px rgba(242, 193, 78, .75));
+}
+
+#menu p, #logins, #tables {
+	margin: 0;
+	padding: .8rem 1.1rem;
+	border-bottom: 1px solid var(--line);
+}
+
+#lang {
+	position: static;
+	padding: .7rem 1.1rem;
+	font-size: .66rem;
+	letter-spacing: .08em;
+	color: var(--muted);
+}
+#lang select { margin-inline-start: .3rem; font-size: .72rem; padding-block: .2rem; }
+#menu > form:has(#lang) { order: 10; border-top: 1px solid var(--line); }
+
+/* sélecteur de thème (plugin AdminerDesigns) : intégré en bas du menu, sous la langue */
+#menu > form:has(select[name="design"]) {
+	position: static !important;
+	order: 10;
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	padding: 0 1.1rem .7rem;
+	font-size: .66rem;
+	letter-spacing: .08em;
+	color: var(--muted);
+}
+#menu > form:has(select[name="design"])::before { content: "Thème :"; }
+#menu > form:has(select[name="design"]) select { flex: 1; min-width: 0; font-size: .72rem; padding-block: .2rem; }
+body:has(input[name="auth[password]"]) #menu > form:has(select[name="design"]) { order: 0; padding: 0 1.1rem; }
+
+#dbs label {
+	display: flex;
+	align-items: center;
+	gap: .55rem;
+	font-size: .64rem;
+	letter-spacing: .22em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+#dbs select { flex: 1; min-width: 0; text-transform: none; letter-spacing: normal; }
+
+#menu p.links {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: .4rem;
+}
+#menu p.links a {
+	display: block;
+	border-radius: 999px;
+	margin: 0;
+	padding: .38rem .4rem;
+	overflow: hidden;
+	font-size: .62rem;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border: 1px solid var(--line);
+	background: rgba(242, 193, 78, .04);
+	transition: background .15s, border-color .15s;
+}
+#menu p.links a:hover { background: rgba(242, 193, 78, .13); border-color: var(--cyan-soft); }
+#menu p.links a.active { color: var(--void); background: var(--cyan); text-shadow: none; }
+
+#tables, #logins { flex: 1 0 auto; padding: .5rem 0 .9rem; }
+#tables li, #logins li {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: .4rem;
+	padding: 0 1.1rem;
+}
+#tables li:hover, #logins li:hover { background: linear-gradient(90deg, rgba(242, 193, 78, .1), transparent); }
+#tables li:hover::before, #logins li:hover::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	background: var(--cyan);
+	box-shadow: var(--glow);
+}
+#logins a, #tables a, #tables span { background: none; }
+#tables a.select {
+	flex: none;
+	width: 1.1rem;
+	font-size: 0;
+	text-align: center;
+	color: var(--muted);
+}
+#tables a.select::before { content: "✧"; font-size: .85rem; }
+#tables a.select:hover { color: var(--cyan-2); }
+#tables li > a:not(.select), #tables li > span, #logins a {
+	flex: 1;
+	min-width: 0;
+	padding: .26rem 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: .8rem;
+	color: var(--text);
+}
+#tables li > a:not(.select):hover, #logins a:hover { color: var(--cyan-2); }
+#tables a.view { font-style: italic; color: #c7d6c9; }
+#tables .active, #tables a.active { color: var(--cyan-2); font-weight: 600; text-shadow: var(--glow); }
+
+#menu::after {
+	content: "✦ Joyeuses fêtes & bonne année ✦";
+	order: 12;
+	padding: .6rem 1.1rem .9rem;
+	font-size: .54rem;
+	letter-spacing: .24em;
+	text-transform: uppercase;
+	color: rgba(157, 180, 164, .55);
+}
+
+/* barre supérieure : fil d'Ariane */
+#breadcrumb {
+	margin: 0;
+	font-size: .78rem;
+	letter-spacing: .04em;
+	color: var(--muted);
+	white-space: nowrap;
+	background:
+		radial-gradient(circle at 50% 70%, #ff5252 0 3px, transparent 3.6px) 0 100% / 42px 12px repeat-x,
+		radial-gradient(circle at 50% 70%, #f2c14e 0 3px, transparent 3.6px) 14px 100% / 42px 12px repeat-x,
+		radial-gradient(circle at 50% 70%, #7ee29a 0 3px, transparent 3.6px) 28px 100% / 42px 12px repeat-x,
+		linear-gradient(rgba(242, 193, 78, .35), rgba(242, 193, 78, .35)) left calc(100% - 7px) / 100% 1px no-repeat,
+		linear-gradient(180deg, rgba(12, 34, 25, .95), rgba(8, 26, 19, .86));
+	border-bottom: 1px solid var(--line);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+#breadcrumb::before {
+	content: "❄";
+	margin-inline-end: .6rem;
+	font-weight: 700;
+	letter-spacing: .18em;
+	text-transform: uppercase;
+	color: var(--cyan);
+	text-shadow: var(--glow);
+}
+#breadcrumb a { color: var(--cyan); }
+
+/* utilisateur + déconnexion */
+.logout {
+	display: flex;
+	align-items: center;
+	gap: .8rem;
+	margin: 0;
+	font-size: .74rem;
+	color: var(--muted);
+	background: none;
+	box-shadow: none;
+}
+.logout span::before {
+	content: "★";
+	margin-inline-end: .45rem;
+	color: var(--green);
+	text-shadow: 0 0 .5rem var(--green);
+	animation: noel-pulse 2.4s ease-in-out infinite;
+}
+#logout { padding: .3rem .75rem; font-size: .62rem; }
+
+/* ============================================================
+   12. Bureau (> 800 px) : menu fixe, barre fixe
+   ============================================================ */
+@media (min-width: 801px) {
+	#menu {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 15;
+		width: var(--menu-w);
+		margin: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		border-right: 1px solid var(--line);
+		box-shadow: 14px 0 40px -22px rgba(242, 193, 78, .3);
+	}
+	#content {
+		margin: 0;
+		margin-inline-start: calc(var(--menu-w) + 2rem);
+		padding: calc(var(--bar-h) + 1.4rem) 2rem 2.5rem 0;
+	}
+	#breadcrumb {
+		position: fixed;
+		top: 0;
+		left: var(--menu-w);
+		right: 0;
+		z-index: 20;
+		height: var(--bar-h);
+		line-height: var(--bar-h);
+		padding: 0 14rem 0 1.4rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.logout {
+		position: fixed;
+		top: 0;
+		right: 0;
+		z-index: 21;
+		height: var(--bar-h);
+		padding: 0 1.1rem;
+	}
+	thead { top: var(--bar-h); }
+}
+
+@media (min-width: 801px) and (max-width: 1100px) {
+	html { --menu-w: 15rem; }
+	#content { padding-inline-end: 1.2rem; }
+}
+
+/* ============================================================
+   13. Mobile (≤ 800 px) : barre fixe + tiroir
+   ============================================================ */
+@media (max-width: 800px) {
+	html { --bar-h: 3rem; }
+	body { min-width: 0; }
+
+	#breadcrumb {
+		position: fixed;
+		top: 0;
+		left: 0 !important;
+		right: 0;
+		z-index: 20;
+		height: var(--bar-h);
+		line-height: var(--bar-h);
+		margin: 0;
+		padding: 0 1rem 0 3.5rem;
+		overflow-x: auto;
+		overflow-y: hidden;
+		scrollbar-width: none;
+	}
+	#breadcrumb::-webkit-scrollbar { display: none; }
+	#breadcrumb::before { content: "❄"; }
+
+	.js #menuopen {
+		position: fixed;
+		top: calc((var(--bar-h) - 2.2rem) / 2);
+		left: .6rem;
+		z-index: 30;
+	}
+	#menuopen .icon {
+		display: grid;
+		place-items: center;
+		width: 2.2rem;
+		height: 2.2rem;
+		font: 400 1.25rem/1 var(--font);
+		color: var(--cyan);
+		background: rgba(242, 193, 78, .08) none;
+		border: 1px solid var(--cyan-soft);
+		cursor: pointer;
+	}
+	#menuopen .icon::before { content: "≡"; }
+	#menuopen .icon[aria-expanded="true"]::before { content: "✕"; font-size: .9rem; }
+	#menuopen .icon:hover { background-color: rgba(242, 193, 78, .2); }
+
+	#content {
+		margin: 0 !important;
+		padding: calc(var(--bar-h) + 1rem) .9rem 2rem;
+	}
+
+	/* tiroir : #foot sans la classe .foot = menu ouvert */
+	.js #foot:not(.foot) {
+		position: fixed;
+		top: var(--bar-h);
+		left: 0;
+		bottom: 0;
+		z-index: 25;
+		display: flex;
+		flex-direction: column;
+		width: min(88vw, 21rem);
+		overflow-y: auto;
+		background: var(--panel-solid);
+		border-right: 1px solid var(--line-2);
+		box-shadow: 0 0 0 100vmax rgba(2, 8, 5, .6), 18px 0 40px rgba(0, 0, 0, .6);
+	}
+	#menu {
+		position: static;
+		flex: 1 0 auto;
+		width: auto;
+		min-width: 0;
+		margin: 0;
+		border: 0;
+		box-shadow: none;
+		background: none;
+	}
+	.js #foot:not(.foot) .logout {
+		position: static;
+		justify-content: space-between;
+		padding: .8rem 1.1rem;
+		background: rgba(6, 20, 14, .95);
+		border-top: 1px solid var(--line-2);
+		box-shadow: none;
+	}
+	#tables li, #logins li { padding-block: .12rem; }
+	#tables li > a:not(.select) { padding-block: .45rem; }
+
+	h2 { font-size: 1.1rem; letter-spacing: .04em; }
+	fieldset { display: inline-block; max-width: 100%; margin-inline-end: .4rem; }
+	.footer { position: static; margin-top: 1.2rem; }
+	.footer > div { backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+	.scrollable { overflow-x: auto; max-width: 100%; }
+	.scrollable thead { top: 0; }
+	thead { top: var(--bar-h); }
+	.footer > div { overflow-x: auto; }
+	.sqlarea, pre[contenteditable].jush { width: 100% !important; }
+	#content p.links a { font-size: .64rem; }
+
+	/* pas de zoom automatique iOS sur les champs */
+	input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]), select, textarea { font-size: 16px; }
+	input[type="submit"], input[type="button"], button:not(.link):not(.icon) { padding: .6rem 1rem; }
+}
+
+/* ============================================================
+   14. Écran de connexion : terminal d'accès centré
+   ============================================================ */
+body:has(input[name="auth[password]"]) #menuopen { display: none; }
+body:has(input[name="auth[password]"]) #content {
+	position: relative;
+	max-width: 30rem;
+	margin: max(10vh, 5rem) auto 3rem !important;
+	padding: 2.1rem 2rem 1.6rem;
+	border: 1px solid var(--line-2);
+	border-radius: 18px;
+	background:
+		repeating-linear-gradient(-45deg, var(--berry) 0 10px, var(--snow) 10px 20px) top / 100% 7px no-repeat,
+		linear-gradient(180deg, rgba(16, 44, 32, .94), rgba(8, 24, 18, .96));
+	box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .9), 0 0 70px -25px rgba(242, 193, 78, .35);
+}
+body:has(input[name="auth[password]"]) #content::before {
+	content: "✦ Joyeuses fêtes · authentification requise";
+	display: block;
+	margin-bottom: .2rem;
+	font-size: .58rem;
+	letter-spacing: .28em;
+	text-transform: uppercase;
+	color: var(--amber);
+}
+body:has(input[name="auth[password]"]) table.layout { width: 100%; margin-top: .4rem; }
+body:has(input[name="auth[password]"]) table.layout th {
+	width: 36%;
+	font-size: .62rem;
+	letter-spacing: .2em;
+	text-transform: uppercase;
+}
+body:has(input[name="auth[password]"]) table.layout input:not([type="checkbox"]) { width: 100%; }
+body:has(input[name="auth[password]"]) #content form > p {
+	display: flex;
+	flex-direction: column;
+	gap: .9rem;
+	margin: 1.2rem 0 0;
+}
+body:has(input[name="auth[password]"]) #content input[type="submit"] {
+	width: 100%;
+	padding: .8rem 1rem;
+	font-size: .78rem;
+	letter-spacing: .3em;
+}
+body:has(input[name="auth[password]"]) #content label { font-size: .74rem; color: var(--muted); }
+
+/* sur l'écran de connexion, le menu devient une simple barre de marque */
+body:has(input[name="auth[password]"]) #foot { display: block; position: static; }
+body:has(input[name="auth[password]"]) #menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: auto;
+	z-index: 15;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	overflow: visible;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+body:has(input[name="auth[password]"]) #menu h1 { border: 0; }
+body:has(input[name="auth[password]"]) #menu > form:has(#lang) { order: 0; border: 0; }
+body:has(input[name="auth[password]"]) #menu::after { content: none; }
+
+@media (max-width: 800px) {
+	body:has(input[name="auth[password]"]) #content {
+		margin: 9.5rem .9rem 2rem !important;
+		padding: 1.5rem 1.2rem 1.3rem;
+	}
+	body:has(input[name="auth[password]"]) #menu h1::after { content: none; }
+	body:has(input[name="auth[password]"]) table.layout th,
+	body:has(input[name="auth[password]"]) table.layout td { display: block; width: auto; padding: .15rem 0; }
+	body:has(input[name="auth[password]"]) table.layout td { padding-bottom: .7rem; }
+}
+
+/* ============================================================
+   15. Accessibilité, impression
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+	body::before, body::after { animation: none; }
+	h2::after, .logout span::before { animation: none; }
+	#content > * { animation: none !important; }
+	* { transition: none !important; }
+}
+
+@media print {
+	body { background: #fff; color: #000; }
+	body::before, body::after { display: none; }
+	#breadcrumb, .logout { position: static; background: none; }
+}

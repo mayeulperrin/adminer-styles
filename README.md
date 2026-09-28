@@ -9,6 +9,7 @@ Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mob
 | Dossier | Thème |
 |---|---|
 | `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction |
+| `noel/adminer.css` | **Noël** — nuit de sapin, or et rouge houx, neige et guirlande lumineuse |
 
 ### Le thème FUI
 
@@ -20,6 +21,16 @@ Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mob
 - **Responsive** : sous 800 px, barre fixe + bouton menu ≡/✕ ouvrant un tiroir avec voile ; tableaux défilants horizontalement ; champs en 16 px (pas de zoom automatique sur iOS).
 - **Lisibilité** : les noms de bases, tables et colonnes ne sont jamais mis en capitales ; animations coupées si le système demande moins de mouvement (`prefers-reduced-motion`).
 - **Aucune ressource externe** (compatible avec la CSP d'Adminer) : polices système, icônes en `data:` URI.
+
+### Le thème Noël
+
+Même ossature que FUI (menu et barre fixes, tiroir mobile, écran de connexion), ambiance festive :
+
+- Fond vert sapin, liens et actions en or, titres de section en rouge houx, texte blanc neige.
+- **Neige** qui tombe lentement, **derrière** le contenu (jamais par-dessus) ; immobile si le système demande moins de mouvement.
+- Guirlande lumineuse sous la barre du haut, étoile scintillante après les titres, étiquettes en ruban rouge, boutons et cadres arrondis.
+- Carte de connexion à bordure sucre d'orge.
+- Titres en serif, interface en sans-serif, code SQL en chasse fixe.
 
 ## Installation
 

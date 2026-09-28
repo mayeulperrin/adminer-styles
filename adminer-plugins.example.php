@@ -12,6 +12,7 @@ if (!class_exists('Adminer\\Plugin')) { // appel direct par le web : rien à ser
 
 $designs = array(
 	"adminer-styles/fui/adminer.css" => "FUI (néon)",
+	"adminer-styles/noel/adminer.css" => "Noël",
 	// ajouter ici les prochains thèmes du dépôt
 );
 
