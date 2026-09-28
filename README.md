@@ -1,17 +1,14 @@
 # adminer-styles
 
-Thèmes CSS pour [Adminer](https://www.adminer.org/) : **FUI** (maison) et quelques thèmes d'origine, avec un sélecteur de thème dans l'interface.
+Thèmes CSS maison pour [Adminer](https://www.adminer.org/), avec un sélecteur de thème dans l'interface. Le dépôt ne contient que des thèmes créés ici (pas de copie des designs officiels d'Adminer).
 
 Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mobile.
 
 ## Thèmes
 
-| Dossier | Thème | Origine |
-|---|---|---|
-| `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction | ce dépôt |
-| `cpanel/adminer.css` | cPanel (imite le thème Jupiter de cPanel) | design officiel Adminer « cpanel » |
-| `classic/adminer.css` | Adminer classique (fichier vide = apparence d'origine, claire) | — |
-| `adminer-dark/adminer-dark.css` | Adminer sombre (fichier quasi vide = mode sombre d'origine) | design officiel Adminer « adminer-dark » |
+| Dossier | Thème |
+|---|---|
+| `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction |
 
 ### Le thème FUI
 
@@ -83,9 +80,8 @@ Deux règles à respecter en modifiant le thème :
 1. **N'écrire nulle part la chaîne `prefers-color-scheme: dark`** (même en commentaire) : Adminer la détecte et reclasse alors le fichier en thème « clair et sombre », ce qui recharge son `dark.css` par-dessus.
 2. Ne pas passer en capitales les éléments qui affichent des identifiants (en-têtes de colonnes, noms de tables, fil d'Ariane) : dans un outil SQL, la casse compte.
 
-Pour ajouter un thème au sélecteur : créer `mon-theme/adminer.css` (ou `…-dark.css` pour un thème sombre), puis l'ajouter à la liste `$designs` de `adminer-plugins.php`.
+Pour ajouter un nouveau thème : créer `mon-theme/adminer.css` (ou `…-dark.css` pour un thème sombre), l'ajouter au tableau « Thèmes » ci-dessus, puis à la liste `$designs` de `adminer-plugins.php`.
 
-## Licences
+## Licence
 
-- Thème FUI et `plugins/default-design.php` : © Mayeul Perrin.
-- `cpanel/adminer.css` et `adminer-dark/adminer-dark.css` : designs officiels distribués avec Adminer (Apache License 2.0 ou GPL 2), repris sans modification.
+Thèmes et `plugins/default-design.php` : © Mayeul Perrin.

@@ -12,9 +12,7 @@ if (!class_exists('Adminer\\Plugin')) { // appel direct par le web : rien à ser
 
 $designs = array(
 	"adminer-styles/fui/adminer.css" => "FUI (néon)",
-	"adminer-styles/cpanel/adminer.css" => "cPanel",
-	"adminer-styles/classic/adminer.css" => "Adminer classique",
-	"adminer-styles/adminer-dark/adminer-dark.css" => "Adminer sombre",
+	// ajouter ici les prochains thèmes du dépôt
 );
 
 return array(
