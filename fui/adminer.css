@@ -216,6 +216,7 @@ table.layout td, table.layout th { border: 0; background: none; padding: .45rem 
 table.layout td:last-child { padding-inline-end: 0; }
 table.layout th { color: var(--muted); font-weight: 500; vertical-align: middle; }
 table.layout tr:hover td, table.layout tr:hover th { background: none; box-shadow: none; }
+table.layout tr:hover > :first-child:not(.hover) { box-shadow: none; }
 
 /* ============================================================
    5. Champs
@@ -952,7 +953,7 @@ body:has(input[name="auth[password]"]) #menu::after { content: none; }
 
 @media (max-width: 800px) {
 	body:has(input[name="auth[password]"]) #content {
-		margin: 6.5rem .9rem 2rem !important;
+		margin: 9.5rem .9rem 2rem !important;
 		padding: 1.5rem 1.2rem 1.3rem;
 	}
 	body:has(input[name="auth[password]"]) #menu h1::after { content: none; }
