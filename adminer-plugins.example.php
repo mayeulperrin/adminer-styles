@@ -14,6 +14,7 @@ $designs = array(
 	"adminer-styles/fui/adminer.css" => "FUI (néon)",
 	"adminer-styles/noel/adminer.css" => "Noël",
 	"adminer-styles/classic-cars/adminer.css" => "Classic cars",
+	"adminer-styles/naturiste/adminer.css" => "Naturiste",
 	// ajouter ici les prochains thèmes du dépôt
 );
 
