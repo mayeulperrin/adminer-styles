@@ -1,7 +1,7 @@
-/* Adminer design naturiste */
+/* Adminer design beach */
 /*
- * Naturiste — thème clair pour Adminer 6 : nature, plein air, simplicité.
- * Un design « dénudé » : pas de bordures dures, cadres sans contour, boutons en galets.
+ * Beach — thème clair pour Adminer 6 : plage, mer et soleil.
+ * Un design épuré : pas de bordures dures, cadres sans contour, boutons en galets.
  * Sable sous un ciel pâle, toile de lin, bord de mer au soleil, pins et dunes.
  * Même ossature que le thème FUI (menu fixe, barre supérieure, tiroir mobile, connexion).
  * https://github.com/mayeulperrin/adminer-styles
@@ -525,7 +525,7 @@ select.jush-autocomplete {
 	border-bottom: 1px solid var(--line);
 }
 #menu h1::after {
-	content: "Naturiste · rien à cacher";
+	content: "Beach · mer, soleil & sable";
 	flex-basis: 100%;
 	margin-top: .35rem;
 	font-size: .56rem;
@@ -657,7 +657,7 @@ body:has(input[name="auth[password]"]) #menu > form:has(select[name="design"]) {
 #tables .active, #tables a.active { color: var(--cyan-2); font-weight: 600; text-shadow: var(--glow); }
 
 #menu::after {
-	content: "Nature · liberté · respect";
+	content: "Mer · soleil · sable";
 	order: 12;
 	padding: .6rem 1.1rem .9rem;
 	font-size: .54rem;
@@ -887,7 +887,7 @@ body:has(input[name="auth[password]"]) #content {
 	box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .9), 0 0 70px -25px rgba(47, 127, 143, .35);
 }
 body:has(input[name="auth[password]"]) #content::before {
-	content: "Rien à cacher… sauf votre mot de passe";
+	content: "Pieds dans le sable · authentification requise";
 	display: block;
 	margin-bottom: .2rem;
 	font-size: .58rem;
@@ -969,7 +969,7 @@ body:has(input[name="auth[password]"]) #menu::after { content: none; }
 }
 
 /* ============================================================
-   16. Naturiste : sable, lin, bord de mer ; un design « dénudé »
+   16. Beach : sable, lin, bord de mer ; un design épuré
    ============================================================ */
 html {
 	--tex-sand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E %3Cfilter id='a' x='0' y='0' width='100%25' height='100%25'%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='4' stitchTiles='stitch'/%3E %3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.43 0 0 0 0 0.26 1.6 0 0 0 -0.95'/%3E%3C/filter%3E %3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2' seed='12' stitchTiles='stitch'/%3E %3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 0.96 1.5 0 0 0 -0.95'/%3E%3C/filter%3E %3Crect width='240' height='240' filter='url(%23a)'/%3E%3Crect width='240' height='240' filter='url(%23b)'/%3E%3C/svg%3E");
@@ -1137,7 +1137,7 @@ legend a, legend a:visited, legend a:link:hover, legend a:visited:hover { color:
 #tables li:hover::before { background: var(--sun); box-shadow: none; }
 #tables a.select::before { content: ""; display: inline-block; width: 10px; height: 10px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E %3Cdefs%3E%3ClinearGradient id='l' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%234e6a28'/%3E%3Cstop offset='1' stop-color='%238fae55'/%3E%3C/linearGradient%3E%3C/defs%3E %3Cpath d='M3 17 C3 8 9 3 17 3 C17 11 12 17 3 17 Z' fill='url(%23l)'/%3E %3Cpath d='M4 16 L15 5' stroke='%233f5820' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; }
 #menu::after {
-	content: "Nature · liberté · respect";
+	content: "Mer · soleil · sable";
 	padding-top: 96px;
 	text-align: center;
 	color: var(--muted);

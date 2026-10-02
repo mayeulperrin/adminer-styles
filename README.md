@@ -11,7 +11,7 @@ Testé avec **Adminer 6.1.0** (MySQL/MariaDB), sur Chrome, Firefox et Safari mob
 | `fui/adminer.css` | **FUI (néon)** — *Futuristic User Interface*, style HUD de science-fiction |
 | `noel/adminer.css` | **Noël** — nuit de sapin, or et rouge houx, neige et guirlande lumineuse |
 | `classic-cars/adminer.css` | **Classic cars** — thème clair : cockpit en cuir, chrome, damier, vert anglais |
-| `naturiste/adminer.css` | **Naturiste** — thème clair « dénudé » : sable, lin, bord de mer, galets, pins |
+| `beach/adminer.css` | **Beach** — thème clair épuré : sable, lin, bord de mer, galets, pins |
 
 ### Le thème FUI
 
@@ -45,14 +45,14 @@ Même ossature que FUI, mais **clair**, ambiance automobile ancienne, en **mati�
 - Écran de connexion « Mettez le contact » : **compteur de vitesse** façon années 60 (cadran noir 0–200 km/h, compteur kilométrique, verre bombé) dont l'aiguille fait un seul balayage au chargement.
 - Titres en slab-serif d'époque, interface en sans-serif géométrique, code SQL en chasse fixe. Aucune animation en boucle.
 
-### Le thème Naturiste
+### Le thème Beach
 
-Même ossature que FUI, **clair**, dans l'esprit du naturisme : nature, plein air, simplicité. Un design **« dénudé »**, débarrassé du superflu :
+Même ossature que FUI, **clair**, ambiance plage : mer, soleil et sable. Un design **épuré**, débarrassé du superflu :
 
 - Pas de bordures dures : cadres sans contour, tableaux sans traits verticaux ; boutons en **galets polis** (bleu-vert océan pour l'action principale, terre cuite pour les actions destructrices).
 - Fond de **sable** sous un ciel pâle et un halo de soleil ; menu et cadres en **toile de lin**.
 - En-tête du menu : bord de mer au soleil ; en pied : pins, dunes et mer. Vague le long de la barre du haut, soleil après les titres, feuille d'olivier devant les sections et étiquettes vert olive.
-- Écran de connexion : « Rien à cacher… sauf votre mot de passe ».
+- Accroches : « Beach · mer, soleil & sable » sous le logo, « Mer · soleil · sable » en pied de menu ; écran de connexion : « Pieds dans le sable · authentification requise ».
 - Aucune animation.
 
 ## Installation
